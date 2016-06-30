@@ -30,6 +30,14 @@ $this->load->helper('member_helper');
 		</div>
 	</div>
 
+	<div class="large-12 columns" style="padding: 5px;margin-bottom: 30px;">
+		<?php echo form_open('admin/search/'.$this->uri->segment(3));?>
+		<div class='large-4 columns'><input type="date" name="date_start"/></div>
+		<div class='large-4 columns'><input type="date" name="date_end"/></div>
+		<div class='large-4 columns'><input type="submit" value="search" class="button"/></div>	
+		<?php echo form_close();?>
+	</div>
+
 	<?php foreach ($list->result() as $row) : ?>
 		<div class="large-12 columns" style="border-bottom: solid 1px #ddd;padding: 5px;">
 
@@ -120,12 +128,15 @@ $this->load->helper('member_helper');
 						<?php endif;?>
 					</div>
 				</div>
-			<?php endforeach;?>
-
-			<div class="large-12 columns">
-				<?php echo $paging;?>
 			</div>
+		<?php endforeach;?>
+
+
+		<div class="large-12 columns">
+			<?php echo $paging;?>
 		</div>
+	</div>
+
 
 
 

@@ -58,6 +58,47 @@ class Admin extends CI_Controller {
 		$this->template->main_layout('admin/list_complaint',$sidebar, $data);
 	}
 
+	public function search($param){
+		$cek_url=is_numeric($this->uri->segment(4));
+		if ( $this->uri->segment(4) !=NULL AND  $cek_url == FALSE){
+			redirect('admin/list_/new');
+		}
+
+		$start_date = $this->input->post('date_start');
+		$date_end =$this->input->post('date_end');
+
+		if ($param === 'new') {
+			$condition = "status = '0' AND date_create >= '".$start_date."' AND date_create <= '".$date_end."'";
+		} else if ($param === 'wait'){
+			$condition = "status = '1' AND date_create >= '".$start_date."' AND date_create <= '".$date_end."'";
+		} else if ($param === 'process'){
+			$condition = "status = '2' AND date_respon >= '".$start_date."' AND date_respon <= '".$date_end."'";
+		} else if ($param === 'done'){
+			$condition = "status = '3' AND date_finish >= '".$start_date."' AND date_finish <= '".$date_end."'";
+		} else {
+			redirect('admin/list_/new');
+		}
+
+		$jml=$this->complaint_model->count_rows($condition);
+		$this->load->library('paging');
+		$base_url = base_url().'admin/list_/'.$param;
+		$total_rows = $jml;
+		$per_page = 10;
+		$segment = 4;
+		$page = $this->paging->create($base_url, $total_rows, $per_page, $segment);
+		$list = $this->complaint_model->list_complaint('*',$condition,$page,$per_page);
+		
+		$data	= array(
+			'it_support'=>$this->member_model->select_data('id,name',array('id_division'=>'5')),
+			'list'=>$list,
+			'paging'=>$this->pagination->create_links()
+			);
+
+		$sidebar='layout/sidebar';
+		echo $start_date;echo ' / '.$date_end;
+		$this->template->main_layout('admin/list_complaint',$sidebar, $data);
+	}
+
 	public function add_task($id){
 		$this->form_validation->set_rules('id_member_respon', 'IT Support', 'required|xss_clean');
 		if($this->form_validation->run() == false) {
