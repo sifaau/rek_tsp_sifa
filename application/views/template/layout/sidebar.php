@@ -10,8 +10,9 @@ $this->load->helper('member_helper');
 			<div class="large-12 columns" style="border-bottom: 1px solid #DDD;padding:10px;">
 				<br>
 				<h4><b><?php echo ucwords($username);?></b></h4>
-				<?php $level = data_member_by_field('level',array('username'=>$username));
-				if ($level === '3'){
+				<?php 
+				$level = data_member_by_field('level',array('username'=>$username));
+				if ($level === '2'){
 					echo '<small>Divisi '.get_division_member($username).'</small>';
 				} 
 				?>
@@ -19,7 +20,14 @@ $this->load->helper('member_helper');
 				<br>
 			</div>
 			<div class="large-12 columns" style="border-bottom: 1px solid #DDD;padding:10px;">
-				<a href="<?php echo base_url();?>people/ad/list_/active" style="color:#666;">Pelaporan Kerusakan</a>
+			<?php 
+				$divisi = data_member_by_field('id_division',array('username'=>$username));
+				if ($divisi === '5'):?>
+					<a href="<?php echo base_url();?>index.php/technician/list_/new" style="color:#666;">Laporan Kerusakan</a>
+				<?php else:?>
+					<a href="<?php echo base_url();?>index.php/employee/list_/new" style="color:#666;">Laporkan Kerusakan</a>
+				<?php endif;?>
+				
 			</div>
 
 		</div>

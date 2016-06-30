@@ -20,9 +20,9 @@
       <div class="menu">
         <i class="ion-person"></i>&nbsp;&nbsp;
         <?php if (( $this->session->userdata('is_login')==TRUE )): ?>
-          <a href="<?php echo base_url();?>Login/logout" style="color: #000;">Logout</a>
+          <a href="<?php echo base_url();?>index.php/Login/logout" style="color: #000;">Logout</a>
         <?php else:?>
-          <a href="<?php echo base_url();?>Login" style="color: #000;">Login</a>
+          <a href="<?php echo base_url();?>index.php/Login" style="color: #000;">Login</a>
         <?php endif;?>  
         
       </div>

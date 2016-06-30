@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `complaint`;
 CREATE TABLE `complaint` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_member` int(11) DEFAULT NULL,
+  `id_member_respon` int(11) DEFAULT NULL,
   `title` varchar(200) DEFAULT NULL,
   `desc` text,
   `status` tinyint(1) DEFAULT NULL,
@@ -30,11 +31,11 @@ CREATE TABLE `complaint` (
   `date_respon` datetime DEFAULT NULL,
   `date_finish` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `complaint` */
 
-insert  into `complaint`(`id`,`id_member`,`title`,`desc`,`status`,`date_create`,`date_respon`,`date_finish`) values (1,1,'ress','eqweqwe',0,'2016-06-29 21:55:25',NULL,NULL);
+insert  into `complaint`(`id`,`id_member`,`id_member_respon`,`title`,`desc`,`status`,`date_create`,`date_respon`,`date_finish`) values (1,1,2,'PC mati','PC di meja saya mati... tolong di cek ya',2,'2016-06-29 21:55:25','2016-06-30 19:47:21','2016-06-30 19:47:24'),(2,3,2,'Printer rusak','warna hasil print tidak jelas',2,'2016-06-30 19:55:21','2016-06-30 19:55:35','2016-06-30 20:09:37'),(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `division` */
 
@@ -61,12 +62,14 @@ CREATE TABLE `member` (
   `level` tinyint(1) DEFAULT NULL,
   `id_division` tinyint(2) DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `tlp` char(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `member` */
 
-insert  into `member`(`id`,`username`,`password`,`level`,`id_division`,`status`) values (1,'test','c4ca4238a0b923820dcc509a6f75849b',3,1,1);
+insert  into `member`(`id`,`username`,`password`,`level`,`id_division`,`status`,`name`,`tlp`) values (1,'karyawan1','c4ca4238a0b923820dcc509a6f75849b',2,1,1,'budi','089111111111'),(2,'it1','c4ca4238a0b923820dcc509a6f75849b',2,5,1,'tono','089222222222'),(3,'karyawan2','c4ca4238a0b923820dcc509a6f75849b',2,3,1,'linda','089333333333'),(4,'admin','c4ca4238a0b923820dcc509a6f75849b',1,NULL,1,'anton','089444444444'),(5,'it2','c4ca4238a0b923820dcc509a6f75849b',2,5,1,'reno','089555555555');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

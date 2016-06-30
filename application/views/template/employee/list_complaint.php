@@ -94,9 +94,9 @@ $day=array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Januari','F
 			<div class="large-12 columns" style="border-bottom: solid 1px #ddd;padding: 5px;">
 
 				<div class='large-2 columns'>
-					<?php echo str_replace($en,$day,date('d M Y',strtotime(date('Y-m-d')))); ?>
+					<?php echo str_replace($en,$day,date('d M Y',strtotime($row->date_create))); ?>
 				</div>
-				<div class='large-8 columns'>
+				<div class='large-6 columns'>
 					<a  href="#" data-open="desc<?php echo $row->id;?>"><?php echo $row->title;?></a>
 					<div class="reveal " id="desc<?php echo $row->id;?>" data-reveal>
 					<small><u>Deskripsi</u></small><br>
@@ -106,13 +106,15 @@ $day=array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Januari','F
 						</button>
 					</div>
 				</div>
-				<div class='large-2 columns' >
+				<div class='large-4 columns' >
 					<?php if ($row->status === '0'){
 						echo 'Menunggu';
 					} else if ($row->status === '1'){
-						echo 'Proses';
+						$name_perespon = data_member_by_field('name',array('id'=>$row->id_member_respon));
+						echo 'Proses ( <small>'.str_replace($en,$day,date('d M Y',strtotime($row->date_respon))).' <i>by</i> '.$name_perespon.'</small> )';
 					} else if ($row->status === '2'){
-						echo 'Selesai';
+						$name_perespon = data_member_by_field('name',array('id'=>$row->id_member_respon));
+						echo 'Selesai ( <small>'.str_replace($en,$day,date('d M Y',strtotime($row->date_finish))).' <i>by</i> '.$name_perespon.'</small>)';
 					}
 					?>
 				</div>

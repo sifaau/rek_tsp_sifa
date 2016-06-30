@@ -8,7 +8,7 @@ class Employee extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		date_default_timezone_set("Asia/Jakarta");
-		$this->auth->is_login();
+		$this->auth->is_member();
 		$this->load->model('member_model');
 		$this->load->model('complaint_model');
 		$this->username=$this->session->userdata('username');

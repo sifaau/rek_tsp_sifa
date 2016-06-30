@@ -22,20 +22,25 @@ class Login extends CI_Controller {
 			$cek=$this->member_model->count_rows(array('username'=>$username,'password'=>md5($password),'status'=>1));
 			if($cek > 0){
 				$data='';
-				$detail=$this->member_model->select_data('id,username,level',array('username'=>$username,'password'=>md5($password)));
+				$detail=$this->member_model->select_data('id,username,level,id_division',array('username'=>$username,'password'=>md5($password)));
 				$sesdata['username'] = $detail->row()->username;
 				$sesdata['is_login'] = TRUE;
 				$this->session->set_userdata($sesdata);
 				$this->session->set_flashdata('message', array('message' => 'SUKSES LOGIN'));
 
 				$level = $detail->row()->level;
+				$divisi = $detail->row()->id_division;
 				if ($level === '1'){
 					redirect('admin');
 				} else if ($level === '2'){
-					redirect('technician');
-				} else if ($level === '3'){
-					redirect('employee');
-				}
+					if ( $divisi == '5' ) {
+						redirect('technician');
+					} else {
+						redirect('employee');
+					}	
+					
+				} 
+
 				
 			} else {
 				$data='';
