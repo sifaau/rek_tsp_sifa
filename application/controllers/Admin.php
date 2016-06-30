@@ -95,7 +95,7 @@ class Admin extends CI_Controller {
 			);
 
 		$sidebar='layout/sidebar';
-		echo $start_date;echo ' / '.$date_end;
+
 		$this->template->main_layout('admin/list_complaint',$sidebar, $data);
 	}
 
