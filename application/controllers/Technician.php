@@ -16,23 +16,23 @@ class Technician extends CI_Controller {
 	public function index()
 	{	
 		
-		redirect('technician/list_/new');
+		redirect('technician/list_/wait');
 	}
 
 	public function list_($param){
 		$cek_url=is_numeric($this->uri->segment(4));
 		if ( $this->uri->segment(4) !=NULL AND  $cek_url == FALSE){
-			redirect('technician/list_/new');
+			redirect('technician/list_/wait');
 		}
 
-		if ($param === 'new') {
-			$condition = array('status'=>0);
-		} else if ($param === 'process'){
+		if ($param === 'wait'){
 			$condition = array('id_member_respon'=>$this->id_member,'status'=>1);
-		} else if ($param === 'done'){
+		} else if ($param === 'process'){
 			$condition = array('id_member_respon'=>$this->id_member,'status'=>2);
+		} else if ($param === 'done'){
+			$condition = array('id_member_respon'=>$this->id_member,'status'=>3);
 		} else {
-			redirect('technician/list_/new');
+			redirect('technician/list_/wait');
 		}
 
 		$jml=$this->complaint_model->count_rows($condition);
@@ -56,7 +56,7 @@ class Technician extends CI_Controller {
 	public function respon_complaint($id){
 		$data=array(
 			'id_member_respon'=>$this->id_member,
-			'status'=>1,
+			'status'=>2,
 			'date_respon'=>date('Y-m-d H:i:s')
 			);
 		$this->complaint_model->update_data($data,array('id'=>$id));
@@ -66,7 +66,7 @@ class Technician extends CI_Controller {
 
 	public function finish_complaint($id){
 		$data=array(
-			'status'=>2,
+			'status'=>3,
 			'date_finish'=>date('Y-m-d H:i:s')
 			);
 		$this->complaint_model->update_data($data,array('id'=>$id,'id_member_respon'=>$this->id_member,));

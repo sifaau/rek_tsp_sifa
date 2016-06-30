@@ -15,7 +15,7 @@ $this->load->helper('member_helper');
 
 	<div class="large-12 columns" style="padding: 5px;margin-bottom: 30px;background: #FFF;border-radius: 5px;box-shadow: 1px 1px 1px #ddd;">
 		<div class='large-2 columns'>
-			<a href="<?php echo base_url();?>index.php/technician/list_/new">Kerusakan Baru</a>
+			<a href="<?php echo base_url();?>index.php/technician/list_/wait">Tugas Baru</a>
 		</div>
 		<div class='large-2 columns'>
 			<a href="<?php echo base_url();?>index.php/technician/list_/process">Proses</a>
@@ -43,12 +43,12 @@ $this->load->helper('member_helper');
 			<div class='large-6 columns'>
 				<?php echo $row->title;?><br>
 				<small><blockquote><?php echo $row->desc;?></blockquote></small>
-				<?php if ($row->status === '1' OR $row->status === '2'):?>
+				<?php if ($row->status === '2' OR $row->status === '3'):?>
 					(<small>ditangani tgl <?php echo str_replace($en,$day,date('d M Y',strtotime($row->date_respon))); ?></small>)
 				<?php endif;?>
 			</div>
 			<div class='large-3 columns' >
-				<?php if ($row->status === '0'):?>
+				<?php if ($row->status === '1'):?>
 					<a href="#" class="label success" data-open="modal_tangani">TANGANI</a>
 
 					<div class="reveal text-center" id="modal_tangani" data-reveal>
@@ -59,7 +59,7 @@ $this->load->helper('member_helper');
 						</button>
 					</div>
 
-				<?php elseif ($row->status === '1'):?>
+				<?php elseif ($row->status === '2'):?>
 					<a href="#" class="label warning" data-open="modal_selesai">KONFIRMASI SELESAI</a>
 
 					<div class="reveal text-center" id="modal_selesai" data-reveal>
@@ -70,7 +70,7 @@ $this->load->helper('member_helper');
 						</button>
 					</div>
 
-				<?php elseif ($row->status === '2'):?>
+				<?php elseif ($row->status === '3'):?>
 					<span style="color:green">Selesai</span><br>(<small><?php echo str_replace($en,$day,date('d M Y',strtotime($row->date_finish))); ?></small>)
 					
 				<?php endif;?>

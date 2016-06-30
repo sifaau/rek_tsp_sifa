@@ -29,10 +29,12 @@ class Admin extends CI_Controller {
 
 		if ($param === 'new') {
 			$condition = array('status'=>0);
-		} else if ($param === 'process'){
+		} else if ($param === 'wait'){
 			$condition = array('status'=>1);
-		} else if ($param === 'done'){
+		} else if ($param === 'process'){
 			$condition = array('status'=>2);
+		} else if ($param === 'done'){
+			$condition = array('status'=>3);
 		} else {
 			redirect('admin/list_/new');
 		}
@@ -47,12 +49,29 @@ class Admin extends CI_Controller {
 		$list = $this->complaint_model->list_complaint('*',$condition,$page,$per_page);
 		
 		$data	= array(
+			'it_support'=>$this->member_model->select_data('id,name',array('id_division'=>'5')),
 			'list'=>$list,
 			'paging'=>$this->pagination->create_links()
 			);
 
 		$sidebar='layout/sidebar';
 		$this->template->main_layout('admin/list_complaint',$sidebar, $data);
+	}
+
+	public function add_task($id){
+		$this->form_validation->set_rules('id_member_respon', 'IT Support', 'required|xss_clean');
+		if($this->form_validation->run() == false) {
+
+		} else {
+			$data=array(
+				'id_member_respon'=>$this->input->post('id_member_respon'),
+				'status'=>1
+				);
+			$this->complaint_model->update_data($data,array('id'=>$id));
+			$this->session->set_flashdata('message', array('message' => 'Kerusakan menunggu penanganan IT Support.'));
+			redirect('admin/list_/new');
+		}
+		
 	}
 
 }

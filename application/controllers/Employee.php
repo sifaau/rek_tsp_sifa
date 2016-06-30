@@ -29,10 +29,12 @@ class Employee extends CI_Controller {
 
 		if ($param === 'new') {
 			$condition = array('id_member'=>$this->id_member,'status'=>0);
-		} else if ($param === 'process'){
+		} else if ($param === 'wait'){
 			$condition = array('id_member'=>$this->id_member,'status'=>1);
-		} else if ($param === 'done'){
+		} else if ($param === 'process'){
 			$condition = array('id_member'=>$this->id_member,'status'=>2);
+		} else if ($param === 'done'){
+			$condition = array('id_member'=>$this->id_member,'status'=>3);
 		} else {
 			redirect('employee/list_/new');
 		}

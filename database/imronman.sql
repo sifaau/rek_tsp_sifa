@@ -31,11 +31,9 @@ CREATE TABLE `complaint` (
   `date_respon` datetime DEFAULT NULL,
   `date_finish` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `complaint` */
-
-insert  into `complaint`(`id`,`id_member`,`id_member_respon`,`title`,`desc`,`status`,`date_create`,`date_respon`,`date_finish`) values (1,1,2,'PC mati','PC di meja saya mati... tolong di cek ya',2,'2016-06-29 21:55:25','2016-06-30 19:47:21','2016-06-30 19:47:24'),(2,3,2,'Printer rusak','warna hasil print tidak jelas',2,'2016-06-30 19:55:21','2016-06-30 19:55:35','2016-06-30 20:09:37'),(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `division` */
 

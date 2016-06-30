@@ -78,7 +78,10 @@ $day=array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Januari','F
 
 		<div class="large-12 columns" style="padding: 5px;margin-bottom: 30px;background: #FFF;border-radius: 5px;box-shadow: 1px 1px 1px #ddd;">
 			<div class='large-2 columns'>
-				<a href="<?php echo base_url();?>index.php/employee/list_/new">Menunggu</a>
+				<a href="<?php echo base_url();?>index.php/employee/list_/new">Laporan Baru</a>
+			</div>
+			<div class='large-2 columns'>
+				<a href="<?php echo base_url();?>index.php/employee/list_/wait">Menunggu</a>
 			</div>
 			<div class='large-2 columns'>
 				<a href="<?php echo base_url();?>index.php/employee/list_/process">Proses</a>
@@ -108,11 +111,14 @@ $day=array('Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Januari','F
 				</div>
 				<div class='large-4 columns' >
 					<?php if ($row->status === '0'){
-						echo 'Menunggu';
+						echo 'Baru';
 					} else if ($row->status === '1'){
 						$name_perespon = data_member_by_field('name',array('id'=>$row->id_member_respon));
-						echo 'Proses ( <small>'.str_replace($en,$day,date('d M Y',strtotime($row->date_respon))).' <i>by</i> '.$name_perespon.'</small> )';
+						echo 'Menunggu ( <i>by</i> '.$name_perespon.'</small> )';
 					} else if ($row->status === '2'){
+						$name_perespon = data_member_by_field('name',array('id'=>$row->id_member_respon));
+						echo 'Proses ( <small>'.str_replace($en,$day,date('d M Y',strtotime($row->date_respon))).' <i>by</i> '.$name_perespon.'</small> )';
+					} else if ($row->status === '3'){
 						$name_perespon = data_member_by_field('name',array('id'=>$row->id_member_respon));
 						echo 'Selesai ( <small>'.str_replace($en,$day,date('d M Y',strtotime($row->date_finish))).' <i>by</i> '.$name_perespon.'</small>)';
 					}
